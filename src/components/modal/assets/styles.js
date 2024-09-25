@@ -33,3 +33,14 @@ export const StyledBody = styled('div')(() => ({
   justifyContent: 'space-between',
   padding: modalPadding,
 }))
+
+export const StyledCloseButton = styled('button')(() => ({
+  background: 'transparent',
+  border: 0,
+  padding: 0,
+  cursor: 'pointer',
+  img: {
+    width: '20px',
+    height: '20px',
+  },
+}))

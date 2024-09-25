@@ -1,5 +1,13 @@
 import { createPortal } from 'react-dom'
-import { StyledBody, StyledHead, StyledModal, StyledOverlay } from './assets/styles.js'
+import {
+  StyledBody,
+  StyledCloseButton,
+  StyledHead,
+  StyledModal,
+  StyledOverlay,
+} from './assets/styles.js'
+
+import closeIcon from '../../assets/icons/close-icon.svg'
 
 const Modal = ({ isOpen, handleClose, children, title }) => {
   if (!isOpen) {
@@ -11,7 +19,9 @@ const Modal = ({ isOpen, handleClose, children, title }) => {
       <StyledModal onClick={(e) => e.stopPropagation()}>
         <StyledHead>
           {title}
-          <div onClick={() => handleClose && handleClose()}>X</div>
+          <StyledCloseButton>
+            <img onClick={() => handleClose && handleClose()} src={closeIcon} alt={'Закрыть'} />
+          </StyledCloseButton>
         </StyledHead>
         <StyledBody>{children}</StyledBody>
       </StyledModal>
