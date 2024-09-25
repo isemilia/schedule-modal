@@ -10,7 +10,7 @@ import {
 
 import chevronDown from '../../assets/icons/chevron-down-icon.svg'
 
-const Select = ({ options, placeholder, value, onChange, defaultValue }) => {
+const Select = ({ options = [], placeholder = '', value, onChange, defaultValue }) => {
   const [selectedOption, setSelectedOption] = useState(
     defaultValue ? options.find((option) => option.value === defaultValue) : null,
   )
@@ -20,7 +20,7 @@ const Select = ({ options, placeholder, value, onChange, defaultValue }) => {
 
   const handleSelect = (option) => {
     setSelectedOption(option)
-    onChange(option.value)
+    onChange && onChange(option)
     setOpen(false)
   }
 
