@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { inputBox } from '../../../shared/styles.js'
 
 export const StyledOptionList = styled('ul')(({ $isOpen }) => ({
   position: 'absolute',
@@ -16,9 +17,7 @@ export const StyledOptionList = styled('ul')(({ $isOpen }) => ({
 }))
 
 export const StyledSelectBox = styled('div')(() => ({
-  padding: '10px 16px',
-  border: '1px solid #ccc',
-  borderRadius: '4px',
+  ...inputBox,
   cursor: 'pointer',
   display: 'flex',
   alignItems: 'center',
