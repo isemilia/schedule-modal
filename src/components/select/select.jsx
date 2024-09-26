@@ -12,7 +12,9 @@ import chevronDown from '../../assets/icons/chevron-down-icon.svg'
 
 const Select = ({ options = [], placeholder = '', value, onChange, defaultValue }) => {
   const [selectedOption, setSelectedOption] = useState(
-    defaultValue ? options.find((option) => option.value === defaultValue) : null,
+    defaultValue !== undefined && defaultValue !== null
+      ? options.find((option) => option.value === defaultValue)
+      : null,
   )
   const [isOpen, setOpen] = useState(false)
 

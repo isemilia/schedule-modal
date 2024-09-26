@@ -53,6 +53,23 @@ const ScheduleForm = () => {
               ]}
             />
           </StyledFormRow>
+          <StyledFormRow $columns={3}>
+            <Select
+              options={[
+                { value: 0, label: 'Без перерыва' },
+                { value: 5, label: '5 мин' },
+                { value: 10, label: '10 мин' },
+                { value: 15, label: '15 мин' },
+                { value: 20, label: '20 мин' },
+                { value: 30, label: '30 мин' },
+                { value: 40, label: '40 мин' },
+                { value: 45, label: '45 мин' },
+                { value: 50, label: '50 мин' },
+                { value: 60, label: '60 мин' },
+              ]}
+              defaultValue={0}
+            />
+          </StyledFormRow>
         </StyledFormContent>
       </StyledForm>
     </FormProvider>

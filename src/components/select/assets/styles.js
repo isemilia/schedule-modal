@@ -14,6 +14,8 @@ export const StyledOptionList = styled('ul')(({ $isOpen }) => ({
   margin: 0,
   padding: 0,
   display: $isOpen ? 'block' : 'none',
+  maxHeight: '200px',
+  overflow: 'auto',
 }))
 
 export const StyledSelectBox = styled('div')(() => ({
