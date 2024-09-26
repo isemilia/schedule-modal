@@ -28,7 +28,7 @@ const Counter = ({ defaultValue = 0, value, onChange }) => {
   }, [value])
 
   useEffect(() => {
-    onChange && onChange({ e: { target: { value: count } } })
+    onChange && onChange({ target: { value: count } })
   }, [count])
 
   return (
