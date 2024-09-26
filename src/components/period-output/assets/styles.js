@@ -12,6 +12,7 @@ export const StyledLabel = styled('div')(() => ({
   padding: inputPadding,
   textAlign: 'center',
   fontSize: '14px',
+  width: '100%',
 }))
 
 export const StyledMiddle = styled('div')(() => ({

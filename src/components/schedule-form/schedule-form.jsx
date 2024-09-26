@@ -70,6 +70,7 @@ const ScheduleForm = () => {
               defaultValue={0}
             />
             <Counter label={'Часов в день'} />
+            <PeriodOutput startLabel={'9:00'} endLabel={'10:30'} />
           </StyledFormRow>
         </StyledFormContent>
       </StyledForm>
