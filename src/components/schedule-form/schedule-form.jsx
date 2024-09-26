@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from 'react-hook-form'
 
-import { StyledForm, StyledFormContent, StyledFormRow } from './assets/styles'
+import { StyledForm, StyledFormContent, StyledFormFooter, StyledFormRow } from './assets/styles'
 import Select from '../select'
 import Counter from '../counter'
 import PeriodOutput from '../period-output'
@@ -8,8 +8,9 @@ import MultiChoiceGroup from '../multi-choice-group'
 import AlertBox from '../alert-box'
 import { formatDate, getNextMonday, minutesToTime } from '../../shared/utils.js'
 import { useEffect } from 'react'
+import Button from '../button'
 
-const ScheduleForm = () => {
+const ScheduleForm = ({ handleCancel }) => {
   const today = new Date().getTime()
 
   const methods = useForm({
@@ -201,7 +202,12 @@ const ScheduleForm = () => {
             Выбор <strong>преподавателя</strong> и <strong>аудитории</strong> не обязателен
           </AlertBox>
         </StyledFormContent>
-        <button onClick={methods.handleSubmit(handleSubmit)}>submit</button>
+        <StyledFormFooter>
+          <Button variant={'secondary'} onClick={() => handleCancel && handleCancel()}>
+            Отмена
+          </Button>
+          <Button onClick={methods.handleSubmit(handleSubmit)}>Добавить расписание</Button>
+        </StyledFormFooter>
       </StyledForm>
     </FormProvider>
   )

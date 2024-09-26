@@ -13,7 +13,7 @@ function App() {
     <>
       <button onClick={() => toggleModal()}>Добавить расписание</button>
       <Modal isOpen={isOpen} handleClose={() => toggleModal()} title={'Редактировать расписание'}>
-        <ScheduleForm />
+        <ScheduleForm handleCancel={() => toggleModal()} />
       </Modal>
     </>
   )
