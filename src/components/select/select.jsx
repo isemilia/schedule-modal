@@ -22,7 +22,7 @@ const Select = ({ options = [], placeholder = '', value, onChange, defaultValue 
 
   const handleSelect = (option) => {
     setSelectedOption(option)
-    onChange && onChange(option)
+    onChange && onChange({ target: { value: option } })
     setOpen(false)
   }
 

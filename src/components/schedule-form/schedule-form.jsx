@@ -6,9 +6,48 @@ import Counter from '../counter'
 import PeriodOutput from '../period-output'
 import MultiChoiceGroup from '../multi-choice-group'
 import AlertBox from '../alert-box'
+import { minutesToTime } from '../../shared/utils.js'
+import { useEffect } from 'react'
 
 const ScheduleForm = () => {
-  const methods = useForm()
+  const today = new Date().getTime()
+
+  const methods = useForm({
+    defaultValues: {
+      minutesPerClass: 45,
+      totalHours: 0,
+      datePeriod: {
+        start: today,
+        end: today,
+      },
+      days: [],
+      breakDuration: 0,
+      hoursPerDay: 0,
+      timePeriod: {
+        start: 420, // minutes from midnight
+        end: 420 + 45,
+      },
+    },
+  })
+
+  const timePeriod = methods.watch('timePeriod')
+  const minutesPerClass = methods.watch('minutesPerClass')
+  const hoursPerDay = methods.watch('hoursPerDay')
+  const breakDuration = methods.watch('breakDuration')
+
+  useEffect(() => {
+    const totalBreaks = breakDuration * (hoursPerDay - 1)
+    const minutesPerDay = minutesPerClass * hoursPerDay
+
+    methods.setValue('timePeriod', {
+      ...timePeriod,
+      end: timePeriod.start + minutesPerDay + totalBreaks,
+    })
+  }, [minutesPerClass, hoursPerDay, breakDuration])
+
+  const handleSubmit = (data) => {
+    console.log(data)
+  }
 
   return (
     <FormProvider {...methods}>
@@ -17,12 +56,16 @@ const ScheduleForm = () => {
           <StyledFormRow $columns={3}>
             <Select
               options={[
-                { value: 45, label: 'Академические' },
-                { value: 60, label: 'Астрономические' },
+                { value: 45, label: 'Академические (45 мин)' },
+                { value: 60, label: 'Астрономические (60 мин)' },
               ]}
               defaultValue={45}
+              onChange={(e) => {
+                const value = e.target.value.value
+                methods.setValue('minutesPerClass', value)
+              }}
             />
-            <Counter label={'Всего часов'} />
+            <Counter label={'Всего часов'} defaultValue={0} />
             <PeriodOutput startLabel={'28.02.2001'} endLabel={'12.07.2004'} />
           </StyledFormRow>
           <StyledFormRow>
@@ -69,9 +112,21 @@ const ScheduleForm = () => {
                 { value: 60, label: '60 мин' },
               ]}
               defaultValue={0}
+              onChange={(e) => {
+                methods.setValue('breakDuration', e.target.value.value)
+              }}
             />
-            <Counter label={'Часов в день'} />
-            <PeriodOutput startLabel={'9:00'} endLabel={'10:30'} />
+            <Counter
+              label={'Часов в день'}
+              defaultValue={1}
+              onChange={(e) => {
+                methods.setValue('hoursPerDay', e.target.value)
+              }}
+            />
+            <PeriodOutput
+              startLabel={minutesToTime(timePeriod.start)}
+              endLabel={minutesToTime(timePeriod.end)}
+            />
           </StyledFormRow>
           <StyledFormRow $columns={3}>
             <div style={{ gridColumn: '1/3' }}>
@@ -95,6 +150,7 @@ const ScheduleForm = () => {
             Выбор <strong>преподавателя</strong> и <strong>аудитории</strong> не обязателен
           </AlertBox>
         </StyledFormContent>
+        <button onClick={methods.handleSubmit(handleSubmit)}>submit</button>
       </StyledForm>
     </FormProvider>
   )
