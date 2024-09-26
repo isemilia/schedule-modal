@@ -6,7 +6,7 @@ import Counter from '../counter'
 import PeriodOutput from '../period-output'
 import MultiChoiceGroup from '../multi-choice-group'
 import AlertBox from '../alert-box'
-import { minutesToTime } from '../../shared/utils.js'
+import { formatDate, getNextMonday, minutesToTime } from '../../shared/utils.js'
 import { useEffect } from 'react'
 
 const ScheduleForm = () => {
@@ -35,6 +35,10 @@ const ScheduleForm = () => {
   const hoursPerDay = methods.watch('hoursPerDay')
   const breakDuration = methods.watch('breakDuration')
 
+  const totalHours = methods.watch('totalHours')
+  const days = methods.watch('days')
+  const datePeriod = methods.watch('datePeriod')
+
   useEffect(() => {
     const totalBreaks = breakDuration * (hoursPerDay - 1)
     const minutesPerDay = minutesPerClass * hoursPerDay
@@ -44,6 +48,27 @@ const ScheduleForm = () => {
       end: timePeriod.start + minutesPerDay + totalBreaks,
     })
   }, [minutesPerClass, hoursPerDay, breakDuration])
+
+  useEffect(() => {
+    const totalDays = Math.ceil(totalHours / hoursPerDay) || 0
+
+    if (totalDays && days.length) {
+      const totalWeeks = totalDays / days.length
+
+      const nextMonday = getNextMonday()
+
+      const lastSelectedWeekDay = Math.max(...days)
+
+      const endDate = new Date(
+        nextMonday.setDate(nextMonday.getDate() + totalWeeks * 7 - (7 - lastSelectedWeekDay)),
+      )
+
+      methods.setValue('datePeriod', {
+        start: getNextMonday(),
+        end: endDate.getTime(),
+      })
+    }
+  }, [totalHours, hoursPerDay, days])
 
   const handleSubmit = (data) => {
     console.log(data)
@@ -65,8 +90,17 @@ const ScheduleForm = () => {
                 methods.setValue('minutesPerClass', value)
               }}
             />
-            <Counter label={'Всего часов'} defaultValue={0} />
-            <PeriodOutput startLabel={'28.02.2001'} endLabel={'12.07.2004'} />
+            <Counter
+              label={'Всего часов'}
+              defaultValue={1}
+              onChange={(e) => {
+                methods.setValue('totalHours', e.target.value)
+              }}
+            />
+            <PeriodOutput
+              startLabel={formatDate(datePeriod.start)}
+              endLabel={formatDate(datePeriod.end)}
+            />
           </StyledFormRow>
           <StyledFormRow>
             <MultiChoiceGroup
@@ -95,6 +129,9 @@ const ScheduleForm = () => {
                 { value: 5, label: 'Сб' },
                 { value: 6, label: 'Вс' },
               ]}
+              onChange={(e) => {
+                methods.setValue('days', e.target.value)
+              }}
             />
           </StyledFormRow>
           <StyledFormRow $columns={3}>
