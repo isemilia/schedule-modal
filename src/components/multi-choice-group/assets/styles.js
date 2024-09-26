@@ -1,17 +1,18 @@
 import styled from 'styled-components'
-import { inputBox, inputPadding } from '../../../shared/styles'
+import { inputBox } from '../../../shared/styles'
 
 export const StyledWrap = styled('div')(() => ({
   ...inputBox,
   padding: 0,
   display: 'grid',
   gridAutoFlow: 'column',
+  gridAutoColumns: '1fr',
   overflow: 'hidden',
 }))
 
 const buttonStyles = {
   display: 'block',
-  padding: inputPadding,
+  padding: '10px 2px',
   cursor: 'pointer',
   textAlign: 'center',
   textTransform: 'uppercase',
