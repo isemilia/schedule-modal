@@ -14,7 +14,7 @@ export const StyledOverlay = styled('div')(({ $isOpen }) => ({
 }))
 
 export const StyledModal = styled('div')(() => ({
-  width: '650px',
+  minWidth: '650px',
   background: '#FFF',
   borderRadius: '8px',
 }))
