@@ -32,7 +32,7 @@ export const StyledWrap = styled('div')(() => ({
 }))
 
 export const StyledPlaceholder = styled('span')(() => ({
-  color: '#999',
+  color: '#000',
 }))
 
 export const StyledSelectIcon = styled('span')(({ $isOpen }) => ({

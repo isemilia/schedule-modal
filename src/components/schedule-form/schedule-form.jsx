@@ -72,6 +72,24 @@ const ScheduleForm = () => {
             <Counter label={'Часов в день'} />
             <PeriodOutput startLabel={'9:00'} endLabel={'10:30'} />
           </StyledFormRow>
+          <StyledFormRow $columns={3}>
+            <div style={{ gridColumn: '1/3' }}>
+              <Select
+                placeholder={'Выберите преподавателя на это время'}
+                options={[
+                  { value: 0, label: 'Преподаватель 1' },
+                  { value: 1, label: 'Преподаватель 2' },
+                ]}
+              />
+            </div>
+            <Select
+              placeholder={'Аудитория'}
+              options={[
+                { value: 0, label: 'Аудитория 1' },
+                { value: 1, label: 'Аудитория 2' },
+              ]}
+            />
+          </StyledFormRow>
         </StyledFormContent>
       </StyledForm>
     </FormProvider>
