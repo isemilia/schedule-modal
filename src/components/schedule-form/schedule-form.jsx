@@ -27,6 +27,8 @@ const ScheduleForm = () => {
         start: 420, // minutes from midnight
         end: 420 + 45,
       },
+      teacher: undefined,
+      classroom: undefined,
     },
   })
 
@@ -52,10 +54,10 @@ const ScheduleForm = () => {
   useEffect(() => {
     const totalDays = Math.ceil(totalHours / hoursPerDay) || 0
 
+    const nextMonday = getNextMonday()
+
     if (totalDays && days.length) {
       const totalWeeks = totalDays / days.length
-
-      const nextMonday = getNextMonday()
 
       const lastSelectedWeekDay = Math.max(...days)
 
@@ -64,8 +66,14 @@ const ScheduleForm = () => {
       )
 
       methods.setValue('datePeriod', {
-        start: getNextMonday(),
+        start: getNextMonday().getTime(),
         end: endDate.getTime(),
+      })
+    } else {
+      const nextMonday = getNextMonday()
+      methods.setValue('datePeriod', {
+        start: nextMonday.getTime(),
+        end: nextMonday.getTime(),
       })
     }
   }, [totalHours, hoursPerDay, days])
@@ -173,6 +181,9 @@ const ScheduleForm = () => {
                   { value: 0, label: 'Преподаватель 1' },
                   { value: 1, label: 'Преподаватель 2' },
                 ]}
+                onChange={(e) => {
+                  methods.setValue('teacher', e.target.value.value)
+                }}
               />
             </div>
             <Select
@@ -181,6 +192,9 @@ const ScheduleForm = () => {
                 { value: 0, label: 'Аудитория 1' },
                 { value: 1, label: 'Аудитория 2' },
               ]}
+              onChange={(e) => {
+                methods.setValue('classroom', e.target.value.value)
+              }}
             />
           </StyledFormRow>
           <AlertBox>
