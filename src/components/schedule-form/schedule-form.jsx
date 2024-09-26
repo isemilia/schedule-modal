@@ -1,10 +1,11 @@
 import { FormProvider, useForm } from 'react-hook-form'
 
 import { StyledForm, StyledFormContent, StyledFormRow } from './assets/styles'
-import Select from '../select/index.js'
-import Counter from '../counter/index.js'
-import PeriodOutput from '../period-output/index.js'
-import MultiChoiceGroup from '../multi-choice-group/index.js'
+import Select from '../select'
+import Counter from '../counter'
+import PeriodOutput from '../period-output'
+import MultiChoiceGroup from '../multi-choice-group'
+import AlertBox from '../alert-box'
 
 const ScheduleForm = () => {
   const methods = useForm()
@@ -90,6 +91,9 @@ const ScheduleForm = () => {
               ]}
             />
           </StyledFormRow>
+          <AlertBox>
+            Выбор <strong>преподавателя</strong> и <strong>аудитории</strong> не обязателен
+          </AlertBox>
         </StyledFormContent>
       </StyledForm>
     </FormProvider>
