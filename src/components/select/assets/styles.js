@@ -21,6 +21,7 @@ export const StyledSelectBox = styled('div')(() => ({
   cursor: 'pointer',
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'space-between',
   gap: '10px',
 }))
 
