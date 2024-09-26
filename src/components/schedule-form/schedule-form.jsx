@@ -21,7 +21,7 @@ const ScheduleForm = () => {
               ]}
               defaultValue={45}
             />
-            <Counter />
+            <Counter label={'Всего часов'} />
             <PeriodOutput startLabel={'28.02.2001'} endLabel={'12.07.2004'} />
           </StyledFormRow>
           <StyledFormRow>
@@ -69,6 +69,7 @@ const ScheduleForm = () => {
               ]}
               defaultValue={0}
             />
+            <Counter label={'Часов в день'} />
           </StyledFormRow>
         </StyledFormContent>
       </StyledForm>

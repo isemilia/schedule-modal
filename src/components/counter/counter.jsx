@@ -10,7 +10,7 @@ import minusIcon from '../../assets/icons/minus-icon.png'
 import plusIcon from '../../assets/icons/plus-icon.png'
 import { useEffect, useState } from 'react'
 
-const Counter = ({ defaultValue = 0, value, onChange }) => {
+const Counter = ({ defaultValue = 0, value, onChange, label }) => {
   const [count, setCount] = useState(defaultValue)
 
   const increaseCount = () => {
@@ -48,7 +48,7 @@ const Counter = ({ defaultValue = 0, value, onChange }) => {
       </StyledDisplay>
 
       <StyledSide>
-        <StyledLabel>Всего часов</StyledLabel>
+        <StyledLabel>{label}</StyledLabel>
         <StyledButton
           type={'button'}
           onClick={() => {
